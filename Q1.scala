@@ -1,5 +1,3 @@
-package FP_Prac04
-
 import scala.io.StdIn
 
 object Q1 {
