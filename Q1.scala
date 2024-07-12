@@ -6,94 +6,80 @@ object Q1 {
   val quantity = Array(6, 4, 10, 20, 30, 40)
 
   def displayinventory(): Unit = {
-
-
-    println("list of the inventory items names and quantity ")
+    println("List of the inventory items names and quantity:")
     for (i <- item.indices) {
-      println(item(i) + " " + quantity(i) + "\n")
-
+      println(item(i) + " " + quantity(i))
     }
-
   }
 
   def restockitem(name: String, quant: Int): Unit = {
     var count = 0
-    for (i <- item.indices)
-      {
-        if (item(i) == name) {
-          quantity(i) = quantity(i) + quant
-          count = count + 1
-        }
+    for (i <- item.indices) {
+      if (item(i) == name) {
+        quantity(i) = quantity(i) + quant
+        count += 1
       }
+    }
 
-      if (count < 1)
-        {
-          println("your item is not sale or restore in our store")
-        }
+    if (count == 0) {
+      println("Your item is not available in our store.")
+    }
 
-        println("now available items and quantity are : ")
-        for (i <- item.indices) {
-          println(item(i) + " " + quantity(i) + "\n")
-        }
-
-
+    println("Now available items and quantities are: ")
+    for (i <- item.indices) {
+      println(item(i) + " " + quantity(i))
+    }
   }
 
   def sellitem(name: String, quant: Int): Unit = {
     var count = 0
-    for (i <- item.indices)
-      {
-        if (item(i) == name) {
+    for (i <- item.indices) {
+      if (item(i) == name) {
+        if (quantity(i) >= quant) {
           quantity(i) = quantity(i) - quant
-          count = count - 1
+          count += 1
+        } else {
+          println(s"Not enough quantity of $name available to sell.")
+          return
         }
       }
+    }
 
-      if (count < 1)
-        {
-          println("your item is not sale or restore in our store")
-        }
+    if (count == 0) {
+      println("Your item is not available in our store.")
+    }
 
-        println("now available items and quantity are : ")
-        for (i <- item.indices) {
-          println(item(i) + " " + quantity(i) + "\n")
-        }
-
-
+    println("Now available items and quantities are: ")
+    for (i <- item.indices) {
+      println(item(i) + " " + quantity(i))
+    }
   }
-
 
   def main(args: Array[String]): Unit = {
-
     displayinventory()
-    println("how many items do you want to buy \n ")
-    var result1 = StdIn.readLine().toInt
 
+    println("How many different items do you want to buy?")
+    val itemsToBuy = StdIn.readLine().toInt
 
-    for (j <- 0 until result1)
-      {
-        println("enter the item which you want to buy : ")
-        var result2 = StdIn.readLine().toString
+    for (k <- 0 until itemsToBuy) {
+      println("Enter the item which you want to buy: ")
+      val itemName = StdIn.readLine()
 
-        println("enter the quantity this item which you want to buy : ")
-        var result3 = StdIn.readLine().toInt
-        restockitem(result2, result3)
+      println("Enter the quantity of this item which you want to buy: ")
+      val quantityToBuy = StdIn.readLine().toInt
+      restockitem(itemName, quantityToBuy)
+    }
 
+    println("How many different items do you want to sell?")
+    val itemsToSell = StdIn.readLine().toInt
 
-      }
+    for (k <- 0 until itemsToSell) {
+      println("Enter the item which you want to sell: ")
+      val itemName = StdIn.readLine()
 
-      for (j <- 0 until result1) {
-        println("enter the item which you want to add : ")
-        var result4 = StdIn.readLine().toString
-
-        println("enter the quantity this item which you want to add : ")
-        var result5 = StdIn.readLine().toInt
-        sellitem(result4, result5)
-
-
-      }
-
-
+      println("Enter the quantity of this item which you want to sell: ")
+      val quantityToSell = StdIn.readLine().toInt
+      sellitem(itemName, quantityToSell)
+    }
   }
-
 }
