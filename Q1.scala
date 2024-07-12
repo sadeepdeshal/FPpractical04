@@ -39,7 +39,7 @@ object Q1 {
           quantity(i) = quantity(i) - quant
           count += 1
         } else {
-          println(s"Not enough quantity of $name available to sell.")
+          println("Not enough quantity of the available item to sell.")
           return
         }
       }
